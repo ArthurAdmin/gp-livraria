@@ -1,0 +1,48 @@
+:root{
+  /* Base */
+  --gp-satin-black: #1E1E1E;
+
+  /* Marrons claros premium (obrigatório) */
+  --gp-brown-latte: #B38B6D;      /* Latte Brown */
+  --gp-brown-almond: #A67C5B;     /* Almond Brown */
+  --gp-brown-mocha: #B08968;      /* Mocha Cream */
+
+  /* Mapeamentos existentes do projeto (mantém nomes usados no código) */
+  --gp-brown-cappuccino: #B08968;
+  --gp-brown-taupe: #A67C5B;
+
+  /* Complementares (obrigatório) */
+  --gp-matte-champagne: #CBB89D;
+  --gp-nude-pink: #CDA08E;
+  --gp-soft-olive: #6F735A;
+
+  /* Uso interno (mantido para evitar off-white/bege lavado) */
+  --gp-sand-beige: #A67C5B;
+
+  /* Infra para bordas/sombras/legibilidade */
+  --gp-border: rgba(203, 184, 157, 0.18);
+  --gp-border-2: rgba(203, 184, 157, 0.10);
+  --gp-muted: rgba(203, 184, 157, 0.62);
+  --gp-muted-2: rgba(203, 184, 157, 0.40);
+}
+
+.dark{
+  --gp-satin-black: #1E1E1E;
+
+  --gp-brown-latte: #B38B6D;
+  --gp-brown-almond: #A67C5B;
+  --gp-brown-mocha: #B08968;
+  --gp-brown-cappuccino: #B08968;
+  --gp-brown-taupe: #A67C5B;
+
+  --gp-matte-champagne: #CBB89D;
+  --gp-nude-pink: #CDA08E;
+  --gp-soft-olive: #6F735A;
+  --gp-sand-beige: #A67C5B;
+
+  --gp-border: rgba(203, 184, 157, 0.18);
+  --gp-border-2: rgba(203, 184, 157, 0.10);
+  --gp-muted: rgba(203, 184, 157, 0.66);
+  --gp-muted-2: rgba(203, 184, 157, 0.42);
+}
+
