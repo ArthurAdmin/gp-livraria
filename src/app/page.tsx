@@ -1,12 +1,7 @@
 export default function Home() {
   return (
     <div>
-      {/* Topbar */}
-      <div className="topbar">
-        <span>Frete grátis acima de R$199</span>
-        <span>5% OFF no PIX</span>
-        <span>Parcelamento em até 6x sem juros</span>
-      </div>
+
 
       {/* Navbar */}
       <nav className="navbar">
@@ -20,9 +15,11 @@ export default function Home() {
         </div>
 
         <div className="menu">
+          <a href="/login">Login</a>
           <a href="#catalogo">Catálogo</a>
           <a href="/cart">Carrinho</a>
         </div>
+
       </nav>
 
       {/* Hero Section */}

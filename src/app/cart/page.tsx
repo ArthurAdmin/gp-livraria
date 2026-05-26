@@ -28,8 +28,7 @@ export default function CartPage() {
   const shipping = itemsCount > 0 ? 25 : 0;
   const total = subtotal + shipping;
 
-  const freeShippingTarget = 105.5;
-  const currentAmount = subtotal;
+
 
   const recommendations = books.slice(1, 4);
 
@@ -38,26 +37,23 @@ export default function CartPage() {
       <div className="cart-container">
         <Container>
           <div className="page-title">
+            <Link
+              href="/"
+              className="inline-flex h-[54px] items-center gap-3 rounded-[16px] border border-[rgba(218,176,132,0.35)] bg-[rgba(179,139,109,0.10)] px-6 py-0 text-xs font-semibold tracking-wide text-[#c99d78] backdrop-blur shadow-soft transition-all duration-300 hover:bg-[rgba(179,139,109,0.18)] hover:text-[#f1d2b5]"
+            >
+              <span aria-hidden="true" className="text-matte-champagne/90">
+                ←
+              </span>
+              <span>Voltar ao início</span>
+            </Link>
             <h1>Meu carrinho</h1>
             <span>{itemsCount} itens</span>
           </div>
 
+
           <div className="cart-layout">
             <div>
-              <div className="free-shipping-banner">
-                <p>
-                  {currentAmount < freeShippingTarget
-                    ? `Falta R$ ${(freeShippingTarget - currentAmount).toFixed(2)} para você ganhar frete grátis.`
-                    : "Parabéns! Você ganhou frete grátis!"}
-                </p>
 
-                <div className="progress-bar">
-                  <div
-                    className="progress-fill"
-                    style={{ width: `${Math.min(100, (currentAmount / freeShippingTarget) * 100)}%` }}
-                  />
-                </div>
-              </div>
 
               <section className="cart-box">
                 {cart.lines.length === 0 ? (
@@ -97,16 +93,13 @@ export default function CartPage() {
               </section>
             </div>
 
-            <OrderSummary
+              <OrderSummary
               itemsCount={itemsCount}
               subtotal={subtotal}
               shipping={shipping}
               onCheckout={() => {
                 // Usa rota existente; mantém fluxo funcional
                 window.location.href = "/checkout";
-              }}
-              onApplyCoupon={() => {
-                // Mock visual: sem alterar totais (para não quebrar lógica atual)
               }}
             />
           </div>

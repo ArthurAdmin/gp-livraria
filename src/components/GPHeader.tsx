@@ -23,7 +23,13 @@ export default function GPHeader() {
             </div>
           </div>
 
-          <nav className="hidden items-center gap-5 md:flex">
+          <nav className="flex items-center gap-5">
+            <a
+              className="text-xs font-semibold tracking-wide text-matte-champagne/70 hover:text-matte-champagne transition"
+              href="/login"
+            >
+              Login
+            </a>
             <a
               className="text-xs font-semibold tracking-wide text-matte-champagne/70 hover:text-matte-champagne transition"
               href="#catalogo"
@@ -37,6 +43,8 @@ export default function GPHeader() {
               Carrinho
             </a>
           </nav>
+
+
 
 
           <div className="flex items-center gap-3">
