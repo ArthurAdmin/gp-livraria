@@ -3,12 +3,12 @@ import GPButton from "@/components/ui/GPButton";
 
 export default function GPHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-matte-champagne/15 bg-[var(--gp-satin-black)] backdrop-blur shadow-dark-glow">
+    <header className="sticky top-0 z-50 border-b border-matte-champagne/15 bg-(--gp-satin-black) backdrop-blur shadow-dark-glow">
       <Container>
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-matte-champagne/40 bg-[var(--gp-brown-latte)] shadow-soft">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(230,215,181,0.25),_transparent_55%),radial-gradient(circle_at_bottom,_rgba(230,215,181,0.12),_transparent_60%)]" />
+            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-matte-champagne/40 bg-(--gp-brown-latte) shadow-soft">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(230,215,181,0.25),transparent_55%),radial-gradient(circle_at_bottom,rgba(230,215,181,0.12),transparent_60%)]" />
               <div className="absolute inset-0 flex items-center justify-center text-sm font-black tracking-wide text-matte-champagne">
                 GP
               </div>
@@ -44,9 +44,6 @@ export default function GPHeader() {
             </a>
           </nav>
 
-
-
-
           <div className="flex items-center gap-3">
             <a
               href="/admin"
@@ -61,7 +58,7 @@ export default function GPHeader() {
                   <span className="text-sm">Entrar</span>
                   <span
                     aria-hidden="true"
-                    className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[var(--gp-border)] bg-[rgba(255,255,255,0.03)]"
+                    className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-(--gp-border) bg-[rgba(255,255,255,0.03)]"
                   >
                     <svg
                       width="14"

@@ -30,9 +30,7 @@ export default function CheckoutPage() {
         <div className="py-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex-1">
-              <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
-                CHECKOUT
-              </p>
+              <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">CHECKOUT</p>
               <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-matte-champagne sm:text-4xl">
                 Um fluxo limpo e acolhedor
               </h1>
@@ -40,14 +38,14 @@ export default function CheckoutPage() {
                 Forma simples, interface premium e cores que respiram.
               </p>
 
-              <div className="mt-8 rounded-[1.1rem] border border-matte-champagne/25 bg-[var(--gp-brown-latte)]/40 p-6 shadow-soft">
+              <div className="mt-8 rounded-[1.1rem] border border-matte-champagne/25 bg-(--gp-brown-latte)/40 p-6 shadow-soft">
                 <div className="grid gap-5 sm:grid-cols-2">
                   <label className="block">
                     <span className="text-xs font-semibold tracking-wide text-matte-champagne/60">Nome</span>
                     <input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-[var(--gp-brown-cappuccino)]/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
+                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-(--gp-brown-cappuccino)/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
                       placeholder="Seu nome"
                     />
                   </label>
@@ -57,7 +55,7 @@ export default function CheckoutPage() {
                     <input
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-[var(--gp-brown-cappuccino)]/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
+                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-(--gp-brown-cappuccino)/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
                       placeholder="voce@exemplo.com"
                       inputMode="email"
                     />
@@ -68,7 +66,7 @@ export default function CheckoutPage() {
                     <input
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-[var(--gp-brown-cappuccino)]/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
+                      className="mt-2 w-full rounded-xl border border-matte-champagne/25 bg-(--gp-brown-cappuccino)/30 px-4 py-3 text-sm font-semibold text-matte-champagne outline-none focus:ring-2 focus:ring-matte-champagne/60 focus:ring-offset-2 focus:ring-offset-[#1E1E1E]"
                       placeholder="Sua cidade"
                     />
                   </label>
@@ -83,8 +81,8 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            <aside className="w-full max-w-xl lg:w-[420px]">
-              <div className="rounded-[1.1rem] border border-matte-champagne/25 bg-[var(--gp-brown-cappuccino)]/30 p-5 shadow-soft">
+            <aside className="w-full max-w-xl lg:w-105">
+              <div className="rounded-[1.1rem] border border-matte-champagne/25 bg-(--gp-brown-cappuccino)/30 p-5 shadow-soft">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   RESUMO DO PEDIDO
                 </p>
@@ -92,9 +90,7 @@ export default function CheckoutPage() {
                 <div className="mt-4 space-y-3">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-matte-champagne/60">Itens</span>
-                    <span className="text-sm font-extrabold text-matte-champagne">
-                      {orderSummary.items}
-                    </span>
+                    <span className="text-sm font-extrabold text-matte-champagne">{orderSummary.items}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-semibold text-matte-champagne/60">Total</span>

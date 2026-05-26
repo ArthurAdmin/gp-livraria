@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+
 import '../styles/cart.css';
 
 type OrderSummaryProps = {

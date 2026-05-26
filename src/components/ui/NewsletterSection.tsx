@@ -28,7 +28,7 @@ export function NewsletterSection() {
   return (
     <Section className="border-t border-matte-champagne/25">
       <Container>
-        <div className="rounded-[1.1rem] border border-matte-champagne/30 bg-[var(--gp-brown-latte)]/40 p-8 sm:p-12">
+        <div className="rounded-[1.1rem] border border-matte-champagne/30 bg-(--gp-brown-latte)/40 p-8 sm:p-12">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/70">
               INSCRIÇÃO
@@ -49,7 +49,7 @@ export function NewsletterSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 disabled={status === "loading"}
-                className="flex-1 rounded-lg border border-matte-champagne/30 bg-[var(--gp-brown-cappuccino)]/30 px-4 py-3 text-sm text-matte-champagne placeholder-matte-champagne/40 transition-colors duration-300 focus:border-nude-pink/50 focus:outline-none"
+                className="flex-1 rounded-lg border border-matte-champagne/30 bg-(--gp-brown-cappuccino)/30 px-4 py-3 text-sm text-matte-champagne placeholder-matte-champagne/40 transition-colors duration-300 focus:border-nude-pink/50 focus:outline-none"
               />
               <GPButton
                 variant="primary"
@@ -65,6 +65,7 @@ export function NewsletterSection() {
                 ✓ Email recebido! Aguarde nossas descobertas.
               </p>
             )}
+
             {status === "error" && (
               <p className="mt-4 text-sm font-semibold text-nude-pink">
                 ✗ Ops, tente novamente.
@@ -76,3 +77,4 @@ export function NewsletterSection() {
     </Section>
   );
 }
+

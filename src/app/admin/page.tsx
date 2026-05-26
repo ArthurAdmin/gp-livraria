@@ -38,7 +38,7 @@ export default function AdminPage() {
             </div>
 
             <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   RECEITA
                 </p>
@@ -46,7 +46,7 @@ export default function AdminPage() {
                   R$ {mockRevenue.toFixed(2)}
                 </p>
               </div>
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   PEDIDOS
                 </p>
@@ -54,7 +54,7 @@ export default function AdminPage() {
                   {mockOrders}
                 </p>
               </div>
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   BAIXO ESTOQUE
                 </p>
@@ -62,7 +62,7 @@ export default function AdminPage() {
                   {mockStockLow}
                 </p>
               </div>
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   STATUS
                 </p>
@@ -73,7 +73,7 @@ export default function AdminPage() {
             </div>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_380px]">
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   LIVROS (MOCK)
                 </p>
@@ -81,7 +81,7 @@ export default function AdminPage() {
                   {books.map((b) => (
                     <div
                       key={b.id}
-                      className="flex items-center justify-between gap-4 rounded-xl border border-matte-champagne/15 bg-[var(--gp-brown-taupe)]/35 p-4"
+                      className="flex items-center justify-between gap-4 rounded-xl border border-matte-champagne/15 bg-(--gp-brown-taupe)/35 p-4"
                     >
                       <div className="min-w-0">
                         <p className="truncate text-sm font-extrabold text-matte-champagne">
@@ -104,7 +104,7 @@ export default function AdminPage() {
                 </div>
               </div>
 
-              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-[var(--gp-brown-taupe)]/35 p-5">
+              <div className="rounded-[1.1rem] border border-matte-champagne/20 bg-(--gp-brown-taupe)/35 p-5">
                 <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/80">
                   AÇÕES
                 </p>
@@ -115,7 +115,7 @@ export default function AdminPage() {
                   <GPButton variant="ghost" className="w-full" type="button">
                     Marcar pedidos como pagos (mock)
                   </GPButton>
-                  <div className="rounded-xl border border-matte-champagne/20 bg-[var(--gp-brown-cappuccino)]/30 p-4">
+                  <div className="rounded-xl border border-matte-champagne/20 bg-(--gp-brown-cappuccino)/30 p-4">
                     <p className="text-xs font-semibold tracking-[0.2em] text-nude-pink">
                       MICROINTERAÇÃO
                     </p>
