@@ -7,7 +7,7 @@ type ProductCardProps = {
   title: string;
   author: string;
   price: number;
-  onAddToCart?: (id: string) => void;
+  onAddToCart?: (book: { id: string; title: string; author: string; price: number }) => void;
 };
 
 export function ProductCard({
@@ -18,7 +18,8 @@ export function ProductCard({
   onAddToCart,
 }: ProductCardProps) {
   return (
-    <div className="product-card" onClick={() => onAddToCart?.(id)}>
+    <div className="product-card" onClick={() => onAddToCart?.({ id, title, author, price })}>
+
       <div className="product-cover" />
 
       <div className="product-content">
@@ -32,11 +33,12 @@ export function ProductCard({
             className="add-button"
             onClick={(e) => {
               e.stopPropagation();
-              onAddToCart?.(id);
+              onAddToCart?.({ id, title, author, price });
             }}
           >
             +
           </button>
+
         </div>
       </div>
     </div>

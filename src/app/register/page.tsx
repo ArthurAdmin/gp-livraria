@@ -21,10 +21,19 @@ export default function RegisterPage() {
 
         <form
           className={styles.registerCard}
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
+            const res = await fetch("/api/auth/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ name, email, password }),
+            });
+            if (res.ok) {
+              window.location.href = "/";
+            }
           }}
         >
+
           <h1 className={styles.title}>Criar uma conta</h1>
           <p className={styles.subtitle}>
             Preencha seus dados para criar sua conta
@@ -154,6 +163,7 @@ export default function RegisterPage() {
           <button type="submit" className={styles.primaryBtn}>
             Criar conta
           </button>
+
 
           <div className={styles.divider}>ou</div>
 

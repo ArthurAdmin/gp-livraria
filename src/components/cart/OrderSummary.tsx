@@ -7,8 +7,10 @@ type OrderSummaryProps = {
   itemsCount: number;
   subtotal: number;
   shipping: number;
+  items?: Array<{ title: string; quantity: number; unitPrice: number; }>;
   onCheckout?: () => void;
 };
+
 
 export function OrderSummary({
   itemsCount,

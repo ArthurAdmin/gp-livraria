@@ -1,5 +1,5 @@
-- [x] Ajustar /login (login.module.css): reduzir escala do card, títulos, inputs, botões e espaçamentos para caber bem em zoom 100%
-- [x] Ajustar /register (register.module.css): reduzir width/padding/tipografia/alturas e margens para ficar compacto e proporcional
-- [x] Revisar responsividade (clamp/min/max, vh/dvh) sem alterar cores/background/navegação/estrutura
-- [x] Rodar lint/build para garantir que não houve erros
-- [x] Conferir consistência visual entre /login e /register
+- [ ] Implementar paginação dinâmica e interativa em `src/app/catalogo/page.tsx` (botões numéricos, setas, slice por página, destaque de página atual)
+- [ ] Resetar `currentPage` para 1 ao alterar busca/categoria/filtros
+- [ ] Atualizar `src/app/catalogo/catalogo.css` para cursor pointer e estado desabilitado
+- [ ] Validar responsividade e comportamento ao filtrar/buscar
+

@@ -21,13 +21,21 @@ export default function LoginPage() {
 
           <form
             className={styles.loginCard}
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              // fluxo visual (sem backend)
+              const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+              });
+              if (res.ok) {
+                window.location.href = "/";
+              }
             }}
           >
             <h1>{title}</h1>
             <p>Acesse sua conta para continuar</p>
+
 
             <div className={styles.inputGroup}>
               <label className={styles.label} htmlFor="email">

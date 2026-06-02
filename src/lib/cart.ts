@@ -20,7 +20,8 @@ type CartAPI = {
 };
 
 function safeParse(lines: unknown): CartState {
-  if (!Array.isArray(lines)) return initialCart;
+  if (!Array.isArray(lines)) return [];
+
   const parsed = lines
     .map((l) => {
       if (!l || typeof l !== "object") return null;
@@ -37,59 +38,75 @@ function safeParse(lines: unknown): CartState {
 }
 
 export function useCart(): CartAPI {
-  const [lines, setLines] = useState<CartState>(initialCart);
-
-  useEffect(() => {
-    let next: CartState | null = null;
+  const [lines, setLines] = useState<CartState>(() => {
+    if (typeof window === "undefined") return initialCart;
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (!raw) return;
-      next = safeParse(JSON.parse(raw));
+      if (!raw) return initialCart;
+      const parsed = safeParse(JSON.parse(raw));
+      return parsed.length ? parsed : initialCart;
+    } catch {
+      return initialCart;
+    }
+  });
+
+  const persist = useCallback((nextLines: CartState) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(nextLines));
     } catch {
       // ignore
-    }
-    if (next) {
-      // evita setState diretamente no corpo do effect (react-hooks/set-state-in-effect)
-      queueMicrotask(() => setLines(next as CartState));
     }
   }, []);
-
-
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(lines));
-    } catch {
-      // ignore
-    }
-  }, [lines]);
 
   const getBook = useCallback((bookId: string) => books.find((b) => b.id === bookId), []);
 
-  const add = useCallback((bookId: string, quantity = 1) => {
-    setLines((prev) => {
-      const existing = prev.find((l) => l.bookId === bookId);
-      if (existing) {
-        return prev.map((l) =>
-          l.bookId === bookId ? { ...l, quantity: Math.max(1, l.quantity + quantity) } : l
-        );
-      }
-      return [...prev, { bookId, quantity: Math.max(1, quantity) }];
-    });
-  }, []);
 
-  const remove = useCallback((bookId: string) => {
-    setLines((prev) => prev.filter((l) => l.bookId !== bookId));
-  }, []);
+  const add = useCallback(
+    (bookId: string, quantity = 1) => {
+      setLines((prev) => {
+        const existing = prev.find((l) => l.bookId === bookId);
+        const next = existing
+          ? prev.map((l) =>
+              l.bookId === bookId ? { ...l, quantity: Math.max(1, l.quantity + quantity) } : l
+            )
+          : [...prev, { bookId, quantity: Math.max(1, quantity) }];
 
-  const setQuantity = useCallback((bookId: string, quantity: number) => {
-    setLines((prev) => {
-      const q = Math.max(0, Math.floor(quantity));
-      if (q === 0) return prev.filter((l) => l.bookId !== bookId);
-      return prev.map((l) => (l.bookId === bookId ? { ...l, quantity: q } : l));
-    });
-  }, []);
+        // Persiste imediatamente para evitar re-hidratação com estado antigo ao navegar/voltar.
+        persist(next);
+        return next;
+      });
+    },
+    [persist]
+  );
 
-  const clear = useCallback(() => setLines([]), []);
+  const remove = useCallback(
+    (bookId: string) => {
+      setLines((prev) => {
+        const next = prev.filter((l) => l.bookId !== bookId);
+        persist(next);
+        return next;
+      });
+    },
+    [persist]
+  );
+
+  const setQuantity = useCallback(
+    (bookId: string, quantity: number) => {
+      setLines((prev) => {
+        const q = Math.max(0, Math.floor(quantity));
+        const next = q === 0 ? prev.filter((l) => l.bookId !== bookId) : prev.map((l) => (l.bookId === bookId ? { ...l, quantity: q } : l));
+        persist(next);
+        return next;
+      });
+    },
+    [persist]
+  );
+
+  const clear = useCallback(() => {
+    const next: CartState = [];
+    persist(next);
+    setLines(next);
+  }, [persist]);
 
   const countItems = useCallback(() => lines.reduce((acc, l) => acc + l.quantity, 0), [lines]);
 
@@ -126,4 +143,5 @@ export function useCart(): CartAPI {
     ]
   );
 }
+
 

@@ -5,6 +5,8 @@ import Section from "@/components/ui/Section";
 import Badge from "@/components/ui/Badge";
 import GPButton from "@/components/ui/GPButton";
 import { useCart } from "@/lib/cart";
+
+
 import Link from "next/link";
 
 import { CartItem } from "@/components/cart/CartItem";
@@ -12,15 +14,35 @@ import { OrderSummary } from "@/components/cart/OrderSummary";
 import { ProductCard } from "@/components/cart/ProductCard";
 
 import { books } from "@/lib/products";
+import { useEffect, useState } from "react";
 
 function formatBRL(value: number) {
+
   return value.toFixed(2);
 }
 
 export default function CartPage() {
   const cart = useCart();
-  const itemsCount = cart.countItems();
-  const subtotal = cart.total();
+
+  // Evita mismatch no SSR vs Client por causa do localStorage.
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    // seta após o primeiro commit para evitar warnings do eslint
+    queueMicrotask(() => setMounted(true));
+  }, []);
+
+
+
+
+
+
+
+
+
+  // Valores iniciais estáveis para não causar mismatch no hydration
+  const itemsCount = mounted ? cart.countItems() : 0;
+  const subtotal = mounted ? cart.total() : 0;
 
   // Mock de frete (mantém experiência visual sem depender de API)
   const shipping = itemsCount > 0 ? 25 : 0;
@@ -49,7 +71,13 @@ export default function CartPage() {
           <div className="cart-layout">
             <div>
               <section className="cart-box">
-                {cart.lines.length === 0 ? (
+                {!mounted ? (
+                  <div className="py-10 text-center" aria-hidden="true">
+                    <p className="text-sm font-semibold text-matte-champagne/70">
+                      Carregando...
+                    </p>
+                  </div>
+                ) : cart.lines.length === 0 ? (
                   <div className="py-10 text-center">
                     <p className="text-sm font-semibold text-matte-champagne/70">
                       Seu carrinho está vazio.
@@ -90,9 +118,82 @@ export default function CartPage() {
               itemsCount={itemsCount}
               subtotal={subtotal}
               shipping={shipping}
-              onCheckout={() => {
-                // Usa rota existente; mantém fluxo funcional
-                window.location.href = "/checkout";
+              items={mounted
+                ? cart.lines.map((line) => {
+                    const book = cart.getBook(line.bookId);
+                    return {
+                      title: book?.title ?? "Livro",
+                      quantity: line.quantity,
+                      unitPrice: book?.price ?? 0,
+                    };
+                  })
+                : []}
+              onCheckout={async () => {
+                // Se estiver logado, sincroniza primeiro o carrinho no banco
+                try {
+                  const me = await fetch("/api/auth/me", { credentials: "include" });
+                  if (me.ok) {
+                    const payload = {
+                      lines: cart.lines.map((l) => ({
+                        productId: l.bookId,
+                        quantity: l.quantity,
+                      })),
+                    };
+
+                    await fetch("/api/cart/sync", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      credentials: "include",
+                      body: JSON.stringify(payload),
+                    });
+                  }
+                } catch {
+                  // mantém UX: checkout continua WhatsApp (por enquanto)
+                }
+
+                const NUMERO_DA_LOJA = "SEU_NUMERO_AQUI";
+
+                const items = cart.lines.map((line) => {
+                  const book = cart.getBook(line.bookId);
+                  return {
+                    title: book?.title ?? "Livro",
+                    quantity: line.quantity,
+                    unitPrice: book?.price ?? 0,
+                    lineTotal: (book?.price ?? 0) * line.quantity,
+                  };
+                });
+
+
+                const shippingText = shipping.toFixed(2).replace(".", ",");
+
+                const totalText = (subtotal + shipping)
+                  .toFixed(2)
+                  .replace(".", ",");
+
+                const mensagem =
+                  `Olá! Gostaria de finalizar meu pedido na Livraria GP.\n\n` +
+                  `Pedido:\n${items.length ? items[0].title : ""}\n` +
+                  `Quantidade: ${
+                    items.length
+                      ? items.reduce((acc, i) => acc + i.quantity, 0)
+                      : 0
+                  }\n` +
+                  `Valor unitário: R$ ${
+                    items.length
+                      ? (items[0].unitPrice as number)
+                          .toFixed(2)
+                          .replace(".", ",")
+                      : "0,00"
+                  }\n\n` +
+                  `Frete: R$ ${shippingText}\n` +
+                  `Total: R$ ${totalText}\n\n` +
+                  `Aguardo o atendimento para concluir a compra.`;
+
+                const whatsappUrl = `https://wa.me/${NUMERO_DA_LOJA}?text=${encodeURIComponent(
+                  mensagem
+                )}`;
+
+                window.open(whatsappUrl, "_blank");
               }}
             />
           </div>
@@ -118,7 +219,6 @@ export default function CartPage() {
         </Container>
       </div>
 
-      {/* Mantém seção visual final do site (sem mexer no resto) */}
       <Section className="mt-0" id="final">
         <Container>
           <div className="hidden" aria-hidden="true">

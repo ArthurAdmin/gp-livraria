@@ -1,100 +1,149 @@
-import Container from "@/components/ui/Container";
-import GPButton from "@/components/ui/GPButton";
+"use client";
+
+import Link from "next/link";
+
+import "./gpheader-desktop.css";
+import "./gpheader-mobile-search.css";
+
 
 export default function GPHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-matte-champagne/15 bg-(--gp-satin-black) backdrop-blur shadow-dark-glow">
-      <Container>
-        <div className="flex items-center justify-between py-4">
-          <div className="flex items-center gap-3">
-            <div className="relative h-10 w-10 overflow-hidden rounded-full border border-matte-champagne/40 bg-(--gp-brown-latte) shadow-soft">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(230,215,181,0.25),transparent_55%),radial-gradient(circle_at_bottom,rgba(230,215,181,0.12),transparent_60%)]" />
-              <div className="absolute inset-0 flex items-center justify-center text-sm font-black tracking-wide text-matte-champagne">
-                GP
-              </div>
-            </div>
-            <div>
-              <p className="text-xs font-semibold tracking-[0.22em] text-matte-champagne/60">
-                LIVRARIA
-              </p>
-              <h1 className="text-sm font-extrabold tracking-wide text-matte-champagne">
-                GP
-              </h1>
-            </div>
+    <>
+      {/* Desktop */}
+      <header className="desktop-header" aria-label="Cabeçalho desktop">
+
+
+        <Link href="/" className="desktop-brand" aria-label="Ir para a página inicial">
+          <div className="desktop-logo">GP</div>
+
+          <div className="desktop-brand-text">
+            <span>LIVRARIA</span>
+            <span>GP</span>
           </div>
+        </Link>
 
-          <nav className="flex items-center gap-5">
-            <a
-              className="text-xs font-semibold tracking-wide text-matte-champagne/70 hover:text-matte-champagne transition"
-              href="/login"
-            >
-              Login
-            </a>
-            <a
-              className="text-xs font-semibold tracking-wide text-matte-champagne/70 hover:text-matte-champagne transition"
-              href="#catalogo"
-            >
-              Catálogo
-            </a>
-            <a
-              className="text-xs font-semibold tracking-wide text-matte-champagne/70 hover:text-matte-champagne transition"
-              href="/cart"
-            >
-              Carrinho
-            </a>
-          </nav>
+        <div className="desktop-search-wrap">
+          <input
+            className="desktop-search"
+            type="text"
+            placeholder="Buscar por título, autor, tema ou ISBN..."
+            aria-label="Buscar"
+          />
+        </div>
 
-          <div className="flex items-center gap-3">
-            <a
-              href="/admin"
-              className="hidden rounded-full px-4 py-2 text-xs font-semibold tracking-wide ring-1 ring-matte-champagne/40 hover:ring-matte-champagne/60 text-matte-champagne/70 hover:text-matte-champagne transition md:inline-flex"
-            >
-              Administrador
-            </a>
+        <nav className="desktop-nav" aria-label="Menu principal">
+          <Link href="/login">Login</Link>
+          <Link href="/catalogo">Catálogo</Link>
 
-            <a href="/login" className="hidden md:inline-flex">
-              <GPButton variant="ghost">
-                <span className="inline-flex items-center gap-2">
-                  <span className="text-sm">Entrar</span>
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-(--gp-border) bg-[rgba(255,255,255,0.03)]"
-                  >
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="text-matte-champagne/80"
-                    >
-                      <path
-                        d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M20 21C20 17.134 16.4183 14 12 14C7.58172 14 4 17.134 4 21"
-                        stroke="currentColor"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </span>
-                </span>
-              </GPButton>
-            </a>
+          <Link href="/cart">Carrinho</Link>
+        </nav>
+      </header>
 
-            <a href="/cart" className="hidden md:inline-flex">
-              <GPButton variant="secondary">Ver carrinho</GPButton>
-            </a>
+
+      {/* Mobile header */}
+      <header className="mobile-header sticky top-0 z-50 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(7,7,7,0.97)] backdrop-blur">
+        <div className="mobile-header-inner">
+          <button
+            className="mobile-icon-btn hamburger-btn"
+            aria-label="Abrir menu"
+            type="button"
+            onClick={() => {
+              const el = document.getElementById("gp_mobile_menu");
+              if (!el) return;
+              el.classList.toggle("open");
+            }}
+          >
+            <span />
+            <span />
+            <span />
+          </button>
+
+          <Link href="/" className="mobile-brand" aria-label="Ir para a página inicial">
+            <div className="mobile-logo">GP</div>
+            <div className="mobile-brand-text">
+              <span>LIVRARIA</span>
+              <span>GP</span>
+            </div>
+          </Link>
+
+          <div className="mobile-actions">
+            <button className="mobile-icon-btn" aria-label="Buscar" type="button" id="gp_mobile_search_btn" onClick={() => {
+              const el = document.getElementById("gp_mobile_search_panel");
+              if (!el) return;
+              el.classList.toggle("open");
+              const input = document.getElementById("gp_mobile_search_input") as HTMLInputElement | null;
+              input?.focus();
+            }}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="7" stroke="currentColor" strokeWidth="2" />
+                <path d="M16.5 16.5L21 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+
+
+            <Link href="/cart" className="mobile-icon-btn" aria-label="Carrinho">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M6 6H21L19 14H8L6 6Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinejoin="round"
+                />
+                <path d="M6 6L5 2H2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="9" cy="20" r="1.5" fill="currentColor" />
+                <circle cx="18" cy="20" r="1.5" fill="currentColor" />
+              </svg>
+            </Link>
           </div>
         </div>
-      </Container>
-    </header>
+
+        {/* Menu mobile */}
+        <div id="gp_mobile_menu" className="gp-mobile-menu" aria-hidden="true">
+          <div className="gp-mobile-menu__inner">
+            <Link href="/login" className="gp-mobile-menu__link">
+              Login
+            </Link>
+            <Link href="#catalogo" className="gp-mobile-menu__link" onClick={() => hideMenu()}>
+              Catálogo
+            </Link>
+          </div>
+        </div>
+
+        {/* Painel busca mobile */}
+        <div id="gp_mobile_search_panel" className="gp-mobile-search" aria-hidden="true">
+          <div className="gp-mobile-search__inner">
+            <input
+              id="gp_mobile_search_input"
+              className="gp-mobile-search__input"
+              type="text"
+              placeholder="Buscar por título, autor ou tema..."
+              aria-label="Buscar no catálogo"
+            />
+            <button
+              className="gp-mobile-search__clear"
+              type="button"
+              aria-label="Limpar busca"
+              onClick={() => {
+                const input = document.getElementById("gp_mobile_search_input") as HTMLInputElement | null;
+                if (!input) return;
+                input.value = "";
+                input.dispatchEvent(new Event("input", { bubbles: true }));
+                input.focus();
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      </header>
+    </>
   );
+}
+
+function hideMenu() {
+  if (typeof document === "undefined") return;
+  const el = document.getElementById("gp_mobile_menu");
+  if (!el) return;
+  el.classList.remove("open");
 }
 

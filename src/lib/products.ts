@@ -109,5 +109,5 @@ export const books: Book[] = [
 
 export type CartLine = { bookId: string; quantity: number };
 
-export const initialCart: CartLine[] = [{ bookId: "gp-001", quantity: 1 }];
+export const initialCart: CartLine[] = [];
 
